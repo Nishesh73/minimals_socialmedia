@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "721648668341",
+    "project_id": "my-minimal-socialmedia",
+    "storage_bucket": "my-minimal-socialmedia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721648668341:android:f02938bd27a821049138fc",
+        "android_client_info": {
+          "package_name": "com.example.minimalsocialmedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA8QOTe3jnlUJvTJuI2YYVDEAWDDGq9w4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
