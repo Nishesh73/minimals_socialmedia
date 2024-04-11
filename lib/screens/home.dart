@@ -61,14 +61,7 @@ class _HomeState extends State<Home> {
   
 
   }
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-
-
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,38 +87,45 @@ class _HomeState extends State<Home> {
       ),
 
       body: Column(children: [
-//best app developer on the planet
-
-Expanded(
-  child: StreamBuilder(stream: FirebaseFirestore.instance.collection("posts").snapshots(),
-   builder: (context, asyncsnap){
-    if(!asyncsnap.hasData){
+      //best app developer on the planet
+      
+      Expanded(
+        child: StreamBuilder(stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+         builder: (context, asyncsnap){
+          if(!asyncsnap.hasData){
       return Center(child: CircularProgressIndicator());
-    }
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: asyncsnap.data!.docs.length,
-      itemBuilder: (context, index){
-        var snap = asyncsnap.data!.docs[index];
-        //make separate widget like this to handle the state
-        return WallPost(snap: snap,
-        postId: snap.get("postId"),
-        likeList: snap.get("likes")??[],
+          }
+          return Padding(
+
+            //padding is very important here it will make sure that there is a
+            //inner space bet the parent widget expanded with list which avoid
+            //rendering error in runtime.
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: asyncsnap.data!.docs.length,
+                  itemBuilder: (context, index){
+                    var snap = asyncsnap.data!.docs[index];
+                    //make separate widget like this to handle the state
+                    return WallPost(snap: snap,
+                    postId: snap.get("postId"),
+                    likeList: snap.get("likes")??[],
+                    
+                    );
+                   
+                  
+                    
+                    
+                  }),
+          );
         
-        );
+        
+        
+        
+         }),
+      ),
        
-
-  
-  
-      });
-  
-  
-  
-  
-   }),
-),
-       
-
+      
         Container(
           alignment: Alignment.bottomCenter,
           child: Row(children: [
@@ -147,7 +147,7 @@ Expanded(
             }, icon: Icon(Icons.arrow_circle_up))
           ],),
         )
-
+      
       ],),
     );
   }

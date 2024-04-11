@@ -1,9 +1,11 @@
-import 'dart:js';
+// import 'dart:js';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:minimalsocialmedia/chatappdir/chathome.dart';
 import 'package:minimalsocialmedia/provider/themeprovider.dart';
 import 'package:minimalsocialmedia/screens/home.dart';
 import 'package:minimalsocialmedia/screens/login.dart';
@@ -61,6 +63,14 @@ class _RegisterState extends State<Register> {
       //showing circular progress indicator
 
     await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+    //storing user for chat app
+    FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser?.uid??null).set({
+      "currentEmail":FirebaseAuth.instance.currentUser?.email??null,
+      "uid":FirebaseAuth.instance.currentUser?.uid??null,
+      //if currentuser is not null ,uid property will run by ?. operator, suppose currentuser is
+      //null then entire expression will be null, handle by ?? operator. dart compiler and flutter
+      //compiler will handle this without causing any error
+    });
     setState(() {
      circularProgress = false;
    });
@@ -70,7 +80,7 @@ class _RegisterState extends State<Register> {
    Navigator.pop(context);
 
 
-   Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+   Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
    //hiding circular progress
   
  

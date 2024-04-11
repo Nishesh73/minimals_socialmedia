@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:minimalsocialmedia/chatappdir/chathome.dart';
 import 'package:minimalsocialmedia/provider/themeprovider.dart';
 import 'package:minimalsocialmedia/screens/home.dart';
 import 'package:minimalsocialmedia/screens/register.dart';
@@ -49,6 +51,13 @@ class _SignInState extends State<SignIn> {
     });
       
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+    //data for chat app
+      await  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser?.uid??null).set({
+      "currentEmail":FirebaseAuth.instance.currentUser?.email??null,
+      "uid":FirebaseAuth.instance.currentUser?.uid??null,
+     //here since i initially created doc while signup now it will only update
+     //that doc means set method 1.create as well as 2. update document
+    });
      setState(() {
       circularProgress = false;
     });
@@ -71,7 +80,7 @@ class _SignInState extends State<SignIn> {
       
      
     
-     Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
      //learn 1. then property 2. delay method
         
   

@@ -1,8 +1,9 @@
-import 'dart:js';
+// import 'dart:js';this is for web
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:minimalsocialmedia/chatappdir/chathome.dart';
 import 'package:minimalsocialmedia/firebase_options.dart';
 import 'package:minimalsocialmedia/provider/themeprovider.dart';
 import 'package:minimalsocialmedia/screens/home.dart';
@@ -29,13 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //getting theme light or black
-      theme: Provider.of<ThemeNotifier>(context).getTheme(),
+      // theme: Provider.of<ThemeNotifier>(context).getTheme(),
       debugShowCheckedModeBanner: false,
       home: StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
        builder: (context, snapshot){
         //it will handle if user is login then show home othrwise show the register page
         if(snapshot.hasData){
-          return Home();
+          return ChatHome();
         }
 return Register();
 

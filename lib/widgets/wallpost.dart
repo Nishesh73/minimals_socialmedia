@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,6 +12,8 @@ import 'package:minimalsocialmedia/widgets/likebutton.dart';
 import 'package:provider/provider.dart';
 
 class WallPost extends StatefulWidget {
+  // ?. null aware, ?? null coalcing operator, to handle null value, which cause runtime error
+  //good practicre
   var snap;
   String postId;//each post postid
   var likeList;//each post like
@@ -31,7 +34,8 @@ bool isLike = false;
   void initState() {
     // TODO: implement initState
     super.initState();
-   isLike = widget.likeList.contains(FirebaseAuth.instance.currentUser!.email);// it will fetch
+   isLike = widget.likeList.contains(FirebaseAuth.instance.currentUser?.email??"");//handle null value
+   // it will fetch
   //  current like status whether the post is liked or not by currentuser
 
   //getting commentcount
@@ -53,12 +57,12 @@ toogleButton(){
   if(isLike){
     //if i like post then add my email inside likes field
     FirebaseFirestore.instance.collection("posts").doc(widget.postId).update({
-      "likes": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.email])
+      "likes": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.email??""])
     });
   }
   else{
        FirebaseFirestore.instance.collection("posts").doc(widget.postId).update({
-      "likes": FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.email])
+      "likes": FieldValue.arrayRemove([FirebaseAuth.instance.currentUser?.email??""])
     });
     
     setState(() {
@@ -162,7 +166,11 @@ commentDialogBox(){
                         //   commentDialogBox();
                         // }, icon: Icon(Icons.comment)),
 
-              StreamBuilder(stream:widget.postId.isNotEmpty? FirebaseFirestore.instance.collection("posts").doc(widget.postId).collection("comments").snapshots():null,
+              StreamBuilder(
+                stream:widget.postId.isNotEmpty? FirebaseFirestore.instance.collection("posts").doc(widget.postId).collection("comments").snapshots():null,
+                //if postId is empty means thers is no comments to fetch, because inside postId's document the
+                //coment reside, streambuilder when get null value, it knows there's no comment to fetch, if postId
+                //'s isnot empty streambuilder fetch comment to display on screen
               //add a null check to elimiate exception from null
                builder: (context,asyncsnap){
 
@@ -170,7 +178,7 @@ commentDialogBox(){
                 return Center(child: CircularProgressIndicator());
               }
                       
-                return asyncsnap.data==null?Text("wait"):  Text("${asyncsnap.data!.docs.length}");
+                return Text("${asyncsnap.data?.docs.length}");
               
                }
                       
@@ -212,18 +220,25 @@ commentDialogBox(){
               // fetching the commentdata using postid
               StreamBuilder(stream: FirebaseFirestore.instance.collection("posts").doc(widget.postId).collection("comments").snapshots(),
                builder: (context,asyncsnap){
+                if(asyncsnap.connectionState==ConnectionState.waiting){
+                   return Center(child: CircularProgressIndicator());
 
-              if(!asyncsnap.hasData){
-                return Center(child: CircularProgressIndicator());
+                }
+                //stream(contineous flow of data) asyncsnap.data meaning the map data inside
+                //document, if asyncsnap.data==null, means there is no map data inside document
+                //asyncsnap.hasdata return true or false, !asyncsnap.hasData return false if 
+                //stream do not emit data yet or there is no data
+              if(!asyncsnap.hasData || asyncsnap.data==null){
+                return Text("no data is available");
               }
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: asyncsnap.data!.docs.length,
+                itemCount: asyncsnap.data?.docs.length??0,
                 itemBuilder: (context, index){
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Comment(commenData: asyncsnap.data!.docs[index].get("commentData"),),
+                    child: Comment(commenData: asyncsnap.data?.docs[index].get("commentData")??"",),
                   );
 
                   
