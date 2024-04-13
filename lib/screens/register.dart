@@ -80,7 +80,8 @@ class _RegisterState extends State<Register> {
    Navigator.pop(context);
 
 
-   Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
+  //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
+   Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
    //hiding circular progress
   
  
@@ -138,7 +139,7 @@ class _RegisterState extends State<Register> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
                      controller: _emailController,
-                     style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189) ),
+                     style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
                     decoration: InputDecoration(
                       
                       hintText: "Email",
@@ -155,7 +156,7 @@ class _RegisterState extends State<Register> {
                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                    child: TextField(
                     controller: _passwordController ,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189) ),
+                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Password",
@@ -174,7 +175,7 @@ class _RegisterState extends State<Register> {
                    child: TextField(
                     controller: _confirmPasswordController ,
                     obscureText: true,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189) ),
+                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
                     decoration: InputDecoration(
                       hintText: "Confirm Password",
                        hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),

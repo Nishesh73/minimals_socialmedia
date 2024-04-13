@@ -121,7 +121,7 @@ class _ChatRoomState extends State<ChatRoom> {
       body: Column(
         children: [
           Expanded(
-            child:  StreamBuilder(stream: FirebaseFirestore.instance.collection("chats").doc(chatRoomId??null).collection("message").orderBy("timeStamp", descending: false).snapshots(),
+            child:  StreamBuilder(stream: FirebaseFirestore.instance.collection("chats").doc(chatRoomId??null).collection("message").orderBy("timeStamp", descending: true).snapshots(),
             //if i donot use order by property then message will generate randomly or inconsistently
              builder: (context, asnapshot) {
               print("chatroom id is $chatRoomId");
@@ -139,7 +139,7 @@ class _ChatRoomState extends State<ChatRoom> {
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
                   // controller: scrollController,
-                  // reverse: true,
+                  reverse: true,
                   
                   shrinkWrap: true,
                   itemCount: asnapshot.data?.docs.length,

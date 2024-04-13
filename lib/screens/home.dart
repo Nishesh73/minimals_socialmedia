@@ -1,8 +1,11 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:minimalsocialmedia/provider/themeprovider.dart';
+import 'package:minimalsocialmedia/screens/register.dart';
 import 'package:minimalsocialmedia/widgets/likebutton.dart';
 import 'package:minimalsocialmedia/widgets/wallpost.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +56,8 @@ class _HomeState extends State<Home> {
     //to handle error
     try {
         await FirebaseAuth.instance.signOut();
+        //force to navigate into register if somethign went wrong
+        Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context)=>Register()));
       
     } catch (e) {
       print(e);
@@ -76,7 +81,7 @@ class _HomeState extends State<Home> {
         
         [
           Switch(value: Provider.of<ThemeNotifier>(context).darkTheme , onChanged: (_){
-            Provider.of<ThemeNotifier>(context, listen: false ).toogleTheme();
+            Provider.of<ThemeNotifier>(context, listen: false ).toogleTheme(context);
 
           }),
           

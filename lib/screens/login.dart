@@ -80,7 +80,8 @@ class _SignInState extends State<SignIn> {
       
      
     
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
+    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHome()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
      //learn 1. then property 2. delay method
         
   
@@ -145,7 +146,7 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
                     controller: _emailController,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189) ),
+                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
                     decoration: InputDecoration(
                       hintText: "Email",
                        hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
@@ -162,7 +163,7 @@ class _SignInState extends State<SignIn> {
                    child: TextField(
                     controller: _passwordController ,
                     obscureText: true,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189) ),
+                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
                     decoration: InputDecoration(
                       hintText: "Password",
                        hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),

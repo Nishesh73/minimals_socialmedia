@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minimalsocialmedia/chatappdir/chatroom.dart';
 import 'package:minimalsocialmedia/chatappdir/userlist.dart';
+import 'package:minimalsocialmedia/screens/register.dart';
 class ChatHome extends StatefulWidget {
   const ChatHome({super.key});
 
@@ -14,7 +15,18 @@ class _ChatHomeState extends State<ChatHome> {
 
 //handling logout opeartion
   logOut()async{
-    await FirebaseAuth.instance.signOut();
+    //streambuilder's auth properties automatically detect any change thus,
+    //no need to use setstate
+    try {
+      await FirebaseAuth.instance.signOut();
+      //force to navigate into register page if it is not self directed
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
+      
+    } catch (e) {
+      
+    }
+    
+   
 
 
   }

@@ -28,22 +28,48 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //getting theme light or black
-      // theme: Provider.of<ThemeNotifier>(context).getTheme(),
-      debugShowCheckedModeBanner: false,
-      home: StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
-       builder: (context, snapshot){
-        //it will handle if user is login then show home othrwise show the register page
-        if(snapshot.hasData){
-          return ChatHome();
+    return FutureBuilder<ThemeData>(
+      // this code is to resolve themedata object for theme change
+      future: Provider.of<ThemeNotifier>(context).getTheme() ,
+      builder: (context,snapshot){
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return CircularProgressIndicator();
         }
-return Register();
 
-       })
+        return MaterialApp(
+        //getting theme light or black
+         theme: snapshot.data,//it will return themedata
+    // return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
+         builder: (context, snapshot){
+          //it will handle if user is login then show home othrwise show the register page
+          //if any type of authdata will change then stream will emit new auth data, Streambuilder
+          
+          // responsible for rebuilding buil method, on the basis of that  ChatHome and Register page will display, if there
+          //is no auth data Register page will display otherwise ChatHome page will display
+          
+          if(snapshot.hasData){
+            // return ChatHome();
+            return Home();
+          }
+      return Register();
       
-      
-      
-      
+         })
+        
+        //prompt - means encourage(like push)
+        
+        
+         
+      );
+
+
+       } ,
+
        
-    );}}
+    );
+
+
+    }
+    
+     }
