@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       //whole body bg without appbar
-      backgroundColor:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.grey[300],
+      backgroundColor:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Color.fromARGB(255, 253, 246, 246),
 
       appBar: AppBar(
        backgroundColor: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Color.fromRGBO(250, 242, 242, 1),
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
         
         [
           Switch(value: Provider.of<ThemeNotifier>(context).darkTheme , onChanged: (_){
-            Provider.of<ThemeNotifier>(context, listen: false ).toogleTheme(context);
+            Provider.of<ThemeNotifier>(context, listen: false ).toogleTheme();
 
           }),
           
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
                 controller: _postController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  fillColor: Provider.of<ThemeNotifier>(context).darkTheme==true?const Color.fromARGB(221, 49, 47, 47): Colors.white,
+                  fillColor: Provider.of<ThemeNotifier>(context).darkTheme==true?Color.fromARGB(221, 187, 176, 176): Color.fromARGB(255, 191, 186, 186),
                   filled: true,
                 ),
               ),

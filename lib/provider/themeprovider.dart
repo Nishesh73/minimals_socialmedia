@@ -6,13 +6,13 @@ class ThemeNotifier extends ChangeNotifier{
 
   //getting theme
 
- Future<ThemeData> getTheme()async{
+  getTheme(){
   //since getTheme() function return future<Themedata> thats why i have to wait
   //till it gives Themedata we can use futurebuilder or steambuilder to handle this
 
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-//       //initially it's value will be false oviously
- darkTheme =  sharedPreferences.getBool("isDt")??false;
+//       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+// //       //initially it's value will be false oviously
+//  darkTheme =  sharedPreferences.getBool("isDt")??false;
 
 
     if(darkTheme == true){
@@ -24,18 +24,18 @@ class ThemeNotifier extends ChangeNotifier{
 
   }
 //toggle the theme
-toogleTheme(BuildContext context){
+toogleTheme(){
   //show the circularprogress indicator and dismiss as like dialogbox
-  showDialog(context: context, builder: (context) {
-    return CircularProgressIndicator();
+  // showDialog(context: context, builder: (context) {
+  //   return CircularProgressIndicator();
 
-  });
+  // });
   darkTheme = !darkTheme;
   
-  //after operation complete dialog dismiss
-  Navigator.pop(context);
+  //  saveThemeState(darkTheme);
+  // Navigator.pop(context);
   notifyListeners();
-  saveThemeState(darkTheme);//same thme state in background without blocking the code
+
 }
 
 
