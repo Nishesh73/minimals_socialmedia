@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
   //post data to firestore
    postToFirestore()async{
     try {
+      
     DocumentReference documentReference = await FirebaseFirestore.instance.collection("posts").add({
       "userEmail": FirebaseAuth.instance.currentUser?.email,
       "userPost":_postController.text,
@@ -74,6 +75,7 @@ class _HomeState extends State<Home> {
       backgroundColor:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Color.fromARGB(255, 253, 246, 246),
 
       appBar: AppBar(
+        automaticallyImplyLeading: false,
        backgroundColor: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Color.fromRGBO(250, 242, 242, 1),
         title: Text("Wall post"),
         centerTitle: true,
@@ -95,11 +97,23 @@ class _HomeState extends State<Home> {
       //best app developer on the planet
       
       Expanded(
-        child: StreamBuilder(stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+        //limit to 5 documents only randomly
+        child: StreamBuilder(stream: FirebaseFirestore.instance.collection("posts")
+        .limit(5)
+        .snapshots(),
+        //document path-- means document's path/ghar--here postId, sometime docId
          builder: (context, asyncsnap){
-          if(!asyncsnap.hasData){
-      return Center(child: CircularProgressIndicator());
+          if(asyncsnap.connectionState==ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
           }
+          if(!asyncsnap.hasData||asyncsnap.data==null||asyncsnap.data!.docs.isEmpty){
+            return Center(child: Text("Be the first one to post!"));
+          }
+        
+          if(asyncsnap.hasError){
+            return Text("something is wrong");
+          }
+        
           return Padding(
 
             //padding is very important here it will make sure that there is a
@@ -112,12 +126,19 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, index){
                     var snap = asyncsnap.data!.docs[index];
                     //make separate widget like this to handle the state
+                    var postId = snap.get("postId");
+                    if(!postId.isEmpty || postId!=null){
+                      //postId.isEmpty-check for empty string ""(no character), postId=null,
+                      // means postId//contain no value, null and empty are different
+                      // null- mean there's nothing here,""- there is something here but empty.eg string s = ""-is
+                     //  still string, but it is empty,List l = [] still list , but empty list;
                     return WallPost(snap: snap,
                     postId: snap.get("postId"),
                     likeList: snap.get("likes")??[],
                     
                     );
-                   
+                    }
+               else     return Container();
                   
                     
                     

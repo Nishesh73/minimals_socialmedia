@@ -8,7 +8,7 @@ class CommentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        tap();
+        tap();//function call
       },
       
       child: Icon(Icons.comment),

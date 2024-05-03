@@ -14,7 +14,10 @@ class Comment extends StatelessWidget {
 
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(commenData),
+        child: commenData==""?Text("Blank comment provided",
+        overflow: TextOverflow.ellipsis,
+        
+        ): Text(commenData, overflow: TextOverflow.ellipsis,),
       ),
     );
   }
