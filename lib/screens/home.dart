@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
       "userPost":_postController.text,
       "likes":[],
       "postId":"",
+      "time": DateTime.now()
       
       
     });
@@ -99,7 +100,8 @@ class _HomeState extends State<Home> {
       Expanded(
         //limit to 5 documents only randomly
         child: StreamBuilder(stream: FirebaseFirestore.instance.collection("posts")
-        .limit(5)
+        // .limit(5)
+         .orderBy("time", descending: true)
         .snapshots(),
         //document path-- means document's path/ghar--here postId, sometime docId
          builder: (context, asyncsnap){

@@ -117,132 +117,138 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          
-        
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Icon(Icons.lock, size: 60,),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Text("We will create account for you"),
-            ),
-            SizedBox(height: 15,),
-           //take only space available not more than that
-         
-          
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               
-                Flexible(child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextField(
-                     controller: _emailController,
-                     style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
-                    decoration: InputDecoration(
-                      
-                      hintText: "Email",
-                      hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                )),
-                SizedBox(height: 10,),
-                //password
-                 Flexible(child: Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                   child: TextField(
-                    controller: _passwordController ,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                       hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                    ),
-                                   ),
-                 )),
-
-                    SizedBox(height: 10,),
-                //password
-                 Flexible(child: Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                   child: TextField(
-                    controller: _confirmPasswordController ,
-                    obscureText: true,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                       hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                    ),
-                                   ),
-                 )),
-
-
             
-               
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Icon(Icons.lock, size: 60,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Text("We will create account for you"),
+                ),
+                SizedBox(height: 15,),
+               //take only space available not more than that
+             
+              
+                  
+                    Flexible(child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: TextField(
+                         controller: _emailController,
+                         style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
+                        decoration: InputDecoration(
+                          
+                          hintText: "Email",
+                          hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    )),
                     SizedBox(height: 10,),
-                   Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                   child: GestureDetector(
-                    onTap: (){
-                      signUp(context);
-                      
-                    },
-                     child: circularProgress?Center(child: CircularProgressIndicator()): Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        
-                        color: Colors.black),
-                      
-                      width: double.maxFinite,
-                      height: 45,
-                      child: Center(child: Text("Sign up",
-                      style: TextStyle(color: Colors.white),
-                      )),
-                     
-                     ),
-                   ),
+                    //password
+                     Flexible(child: Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                       child: TextField(
+                        controller: _passwordController ,
+                          style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                           hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                        ),
+                                       ),
+                     )),
+            
+                        SizedBox(height: 10,),
+                    //password
+                     Flexible(child: Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                       child: TextField(
+                        controller: _confirmPasswordController ,
+                        obscureText: true,
+                          style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
+                        decoration: InputDecoration(
+                          hintText: "Confirm Password",
+                           hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                        ),
+                                       ),
+                     )),
+            
+            
+                
                    
-                   ),
-                   SizedBox(height: 20,),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    Text("Already signup?"),
-                    SizedBox(width: 4,),
-                      GestureDetector(
+                        SizedBox(height: 10,),
+                       Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                       child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+                          signUp(context);
+                          
                         },
-                        
-                        child: Text("Signin now", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)),
- ],),
-
-               
-                    
+                         child: circularProgress?Center(child: CircularProgressIndicator()): Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            
+                            color: Colors.black),
+                          
+                          width: double.maxFinite,
+                          height: 45,
+                          child: Center(child: Text("Sign up",
+                          style: TextStyle(color: Colors.white),
+                          )),
+                         
+                         ),
+                       ),
+                       
+                       ),
+                       SizedBox(height: 20,),
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                        Text("Already signup?"),
+                        SizedBox(width: 4,),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+                            },
+                            
+                            child: Text("Signin now", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)),
+             ],),
+            
                    
+                        
+                       
+                        
                     
-                
+                      
+                      
+            
+            
+                  
+                    
                   
                   
-
-
-              
-                
-              
-              
-           
-        
-        ],),
+               
+            
+            ],),
+          ),
+        ),
       ),
 
 

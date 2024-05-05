@@ -124,120 +124,128 @@ class _SignInState extends State<SignIn> {
       backgroundColor:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: const Color.fromARGB(255, 224, 189, 189),
       
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          
-        
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Icon(Icons.lock, size: 60,),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Text("Welcome back you have been missed"),
-            ),
-            SizedBox(height: 15,),
-           //take only space available not more than that
-         
-          
+        child: SingleChildScrollView(
+             //to use scroll view we must have to give height to column
+             //if i donot give the scrollview widget then the size of textfield will shrink
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.center,
               
-                Flexible(child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextField(
-                    controller: _emailController,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                       hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                )),
-                SizedBox(height: 10,),
-                //password
-                 Flexible(child: Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                   child: TextField(
-                    controller: _passwordController ,
-                    obscureText: true,
-                      style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                       hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                    ),
-                                   ),
-                 )),
-
-                //  Padding(
-                //    padding: const EdgeInsets.symmetric(horizontal: 8.0,
-                //    vertical: 5),
-
-                //    child: GestureDetector(
-                //     onTap: () {
-                //       print("forgot button tapped");
-                //     },
-                //      child: Container(
-                //       alignment: Alignment.centerRight,
-                //       child: Text("Forgot password?"),
-                //      ),
-                //    ),
-                   
-                //    ),
-                    SizedBox(height: 10,),
-                   Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                   child: GestureDetector(
-                    onTap: (){
-                      login();
-                    },
-                     child:circularProgress?Center(child: CircularProgressIndicator()): Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        
-                        color: Colors.black),
-                      
-                      width: double.maxFinite,
-                      height: 45,
-                      child: Center(child: Text("Sign in",
-                      style: TextStyle(color: Colors.white),
-                      )),
-                     
-                     ),
-                   ),
-                   
-                   ),
-                   SizedBox(height: 20,),
-
-                            Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    Text("Not a member yet ?"),
-                    SizedBox(width: 4,),
-                      GestureDetector(
-                        onTap: (){
-                               Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
-                        },
-                        
-                        child: Text("Register now", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)),
- ],),
-
-                
+            
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Icon(Icons.lock, size: 60,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Text("Welcome back you have been missed"),
+                ),
+                SizedBox(height: 15,),
+               //take only space available not more than that
+             
+              
                   
-
-
-              
-                
-              
-              
-           
-        
-        ],),
+                    Flexible(child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: TextField(
+                        controller: _emailController,
+                          style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
+                        decoration: InputDecoration(
+                          hintText: "Email",
+                           hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    )),
+                    SizedBox(height: 10,),
+                    //password
+                     Flexible(child: Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                       child: TextField(
+                        controller: _passwordController ,
+                        obscureText: true,
+                          style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87: Colors.black ),
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                           hintStyle: TextStyle(color: Provider.of<ThemeNotifier>(context).darkTheme==true?Colors.black87:Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                        ),
+                                       ),
+                     )),
+            
+                    //  Padding(
+                    //    padding: const EdgeInsets.symmetric(horizontal: 8.0,
+                    //    vertical: 5),
+            
+                    //    child: GestureDetector(
+                    //     onTap: () {
+                    //       print("forgot button tapped");
+                    //     },
+                    //      child: Container(
+                    //       alignment: Alignment.centerRight,
+                    //       child: Text("Forgot password?"),
+                    //      ),
+                    //    ),
+                       
+                    //    ),
+                        SizedBox(height: 10,),
+                       Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                       child: GestureDetector(
+                        onTap: (){
+                          login();
+                        },
+                         child:circularProgress?Center(child: CircularProgressIndicator()): Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            
+                            color: Colors.black),
+                          
+                          width: double.maxFinite,
+                          height: 45,
+                          child: Center(child: Text("Sign in",
+                          style: TextStyle(color: Colors.white),
+                          )),
+                         
+                         ),
+                       ),
+                       
+                       ),
+                       SizedBox(height: 20,),
+            
+                                Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                        Text("Not a member yet ?"),
+                        SizedBox(width: 4,),
+                          GestureDetector(
+                            onTap: (){
+                                   Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                            },
+                            
+                            child: Text("Register now", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)),
+             ],),
+            
+                    
+                      
+            
+            
+                  
+                    
+                  
+                  
+               
+            
+            ],),
+          ),
+        ),
       ),
 
 

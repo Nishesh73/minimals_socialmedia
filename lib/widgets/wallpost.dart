@@ -124,90 +124,111 @@ class _WallPostState extends State<WallPost> {
       ),
       child: Column(
         children: [
-          Row(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  LikeButton(
-                    isLiked: isLike,
-                    //like button gesturedetector
-                    tap: () {
-                      toogleButton();
-                    },
-                  ),
-                  Text("${widget.likeList.length} likes")
-                  
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  //here commentButton constructor accept the function via tap parameter
-                  CommentButton(
-                    tap: () {
-                      commentDialogBox();
-                    },
-                  ),
-                  // IconButton(onPressed: (){
-                  //   commentDialogBox();
-                  // }, icon: Icon(Icons.comment)),
-
-                  StreamBuilder(
-                      stream: widget.postId.isNotEmpty
-                          ? FirebaseFirestore.instance
-                              .collection("posts")
-                              .doc(widget.postId)
-                              .collection("comments")
-                              .orderBy("commentTime", descending: true)
-                              
-                           
-                              .snapshots()
-                          : null,
-                      //if postId is empty means thers is no comments to fetch, because inside postId's document the
-                      //coment reside, streambuilder when get null value, it knows there's no comment to fetch, if postId
-                      //'s isnot empty streambuilder fetch comment to display on screen
-                      //add a null check to elimiate exception from null
-                      builder: (context, asyncsnap) {
-                        if (!asyncsnap.hasData) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-
-                        return Text("${asyncsnap.data?.docs.length}");
-                      })
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Padding(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              Flexible(
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child:widget.snap.get("userPost")==""?Text("Blank post"): Text(widget.snap.get("userPost")),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "log in as ${widget.snap.get("userEmail")}",
-                    style: TextStyle(color: Colors.grey),
+                  child: Column(
+                    children: [
+                      LikeButton(
+                        isLiked: isLike,
+                        //like button gesturedetector
+                        tap: () {
+                          toogleButton();
+                        },
+                      ),
+                      Text("${widget.likeList.length} likes")
+                      
+                    ],
                   ),
                 ),
-              ],
-            )
-          ]),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    //here commentButton constructor accept the function via tap parameter
+                    CommentButton(
+                      tap: () {
+                        commentDialogBox();
+                      },
+                    ),
+                    // IconButton(onPressed: (){
+                    //   commentDialogBox();
+                    // }, icon: Icon(Icons.comment)),
+            
+                    StreamBuilder(
+                        stream: widget.postId.isNotEmpty
+                            ? FirebaseFirestore.instance
+                                .collection("posts")
+                                .doc(widget.postId)
+                                .collection("comments")
+                                .orderBy("commentTime", descending: false)
+                                
+                             
+                                .snapshots()
+                            : null,
+                        //if postId is empty means thers is no comments to fetch, because inside postId's document the
+                        //coment reside, streambuilder when get null value, it knows there's no comment to fetch, if postId
+                        //'s isnot empty streambuilder fetch comment to display on screen
+                        //add a null check to elimiate exception from null
+                        builder: (context, asyncsnap) {
+                          if (!asyncsnap.hasData) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+            
+                          return Text("${asyncsnap.data?.docs.length}");
+                        })
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child:widget.snap.get("userPost")==""?Text("Blank post"): Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width*0.5
+                      ),
+                      
+                    
+                      child: Text(
+                        
+                        widget.snap.get("userPost",
+                      
+                      ),
+                      overflow: TextOverflow.ellipsis,),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.4 ),
+                      child: Text(
+                        "${widget.snap.get("userEmail")}",
+                        // overflow: TextOverflow.ellipsis,wont help to prevent overflow
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ]),
+          ),
 
           // fetching the commentdata using postid
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StreamBuilder(
-                  stream: FirebaseFirestore.instance
+                  stream: widget.postId!=null && widget.postId.isNotEmpty? FirebaseFirestore.instance
                       .collection("posts")
                       .doc(widget.postId)
                       .collection("comments")
                       // .limit(2)
-                      .snapshots(),
+                      .snapshots():null,
                   builder: (context, asyncsnap) {
                     if (asyncsnap.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
